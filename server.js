@@ -44,7 +44,7 @@ class Storage {
         })
     }
     addNote(){
-        const{title,text} =note
+        const {title,text} = paper
         if (!title || !text) {
             throw new Error('you must have both a title and text!')
         }
@@ -57,6 +57,11 @@ class Storage {
             .then(notes => [...notes,newNote])
             .then(updatedNotes => this.writeit(updatedNotes))
             .then(()=> this.newNote)
+    }
+    removeNote(id) {
+        return this.getNotes()
+            .then(notes => notes.filter(paper => paper.id !== id))
+            .then(keepNotes => this.writeit(keepNotes))
     }
 }
 // const storage = Storage
@@ -73,18 +78,28 @@ app.get('/api/notes',(req,res)=> {
 
 app.post('/api/notes',(req,res)=>{
     // Log that a POST request was received
-    console.info(`${req.method} request recevied to add a note`);
+    console.info(`${req.method} request recevied to ADD a note`);
     Storage
         .addNote(req.body)
-        .then(note => {
-            res.json(note)
+        .then(paper => {
+            res.json(paper)
         })
         .catch(err => {
             res.status(500).json(err)
         })
 });
 // app.delete
-
+app.delete('/api/notes/:id',(req, res)=>{
+    console.info(`${req.method} request recevied to DELETE a note`);
+    Storage
+        .removeNote(req.params.id)
+        .then(()=>{
+            res.json({ok:true})
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+})
 app.listen(PORT,() =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
