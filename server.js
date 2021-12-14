@@ -55,20 +55,6 @@ app.post('/api/notes',(req,res)=>{
     }
     // let addNote = req.body;
 })
-// delete
-app.delete('/api/notes/:id',(req,res)=>{
-    let noteID = req.params.id;
-    console.info(`${req.method} request recevied to DELETE note id ${noteID}`);
-    let newNote = req.body
-    fs.readFile('./db/db.json', (err)=> {
-        if (err) throw err;
-        let data = JSON.parse()
-    })
-    readit = readit.filter(currentNote => {return newNote.id !== noteID})
-
-    fs.writeFileSync('./db/db.json',JSON.stringify(readit));
-        res.json(readit);
-})
 
 
 app.listen(PORT,() =>
