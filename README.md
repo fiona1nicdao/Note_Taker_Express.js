@@ -1,5 +1,6 @@
 # Note_Taker_Express.js
-Homework 11: Express.js Note Taker
+Week 11: Express.js Note Taker
+
 ![License: MIT](<https://img.shields.io/badge/License-MIT-yellow.svg>)
 
 # Objectives 
